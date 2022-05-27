@@ -22,8 +22,8 @@ contract Nft1155 is ERC1155 {
         uint256 amount
     ) external {
         require(
-            tokenId <= _maxTokensAmount,
-            "TokenId should be in the range from 0 to 10"
+            tokenId > 0 && tokenId <= _maxTokensAmount,
+            "TokenId should be in the range from 1 to 10"
         );
         _mint(to, tokenId, amount, "");
     }

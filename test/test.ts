@@ -33,14 +33,14 @@ describe("Nft1155", function () {
     expect(await nft1155Contract.balanceOf(owner.getAddress(), 1)).equal(11);
   });
 
-  it("should throw an exception if tokenId out of the range from 0 to 10", async function () {
+  it("should throw an exception if tokenId out of the range from 1 to 10", async function () {
     const address: string = await owner.getAddress();
 
     try {
       expect(await nft1155Contract.mint(owner.getAddress(), 11, 1)
       ).to.throw();
     } catch (error: unknown) {
-      expect(error instanceof Error ? error.message : "").to.have.string("TokenId should be in the range from 0 to 10");
+      expect(error instanceof Error ? error.message : "").to.have.string("TokenId should be in the range from 1 to 10");
     }
   });
 });
