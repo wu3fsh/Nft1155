@@ -10,10 +10,6 @@ task("mint", "Mint a new token")
     const address = taskArgs.address;
     const tokenId = taskArgs.tokenid;
     const amount = taskArgs.amount;
-    console.log("nftAddress", nftAddress);
-    console.log("address", address);
-    console.log("tokenId", tokenId);
-    console.log("amount", amount);
     const nftContractFactory = await hre.ethers.getContractFactory('Nft1155');
     const nftContract = nftContractFactory.attach(nftAddress);
     await nftContract.mint(address, tokenId, amount);
