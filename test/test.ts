@@ -19,9 +19,15 @@ describe("Nft1155", function () {
     expect(await nft1155Contract.getMaxAllowedTokensAmount()).equal(10);
   });
 
-  it("should set another baseTokenUri", async function () {
+  it("should set another baseTokenUri by constructor", async function () {
     const anotherUri: string = "123";
     nft1155Contract = await nft1155ContractFactory.deploy(anotherUri);
+    expect(await nft1155Contract.getBaseTokenUri()).equal(anotherUri);
+  });
+
+  it("should set another baseTokenUri", async function () {
+    const anotherUri: string = "123";
+    nft1155Contract.setBaseTokenUri(anotherUri);
     expect(await nft1155Contract.getBaseTokenUri()).equal(anotherUri);
   });
 

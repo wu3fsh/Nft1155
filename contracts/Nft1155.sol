@@ -1,9 +1,10 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
+import "../interfaces/IERC1155Token.sol";
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
-contract Nft1155 is ERC1155 {
+contract Nft1155 is ERC1155, IERC1155Token {
     string _tokenBaseUri =
         "ipfs://QmPLRr5WWHmv6B5gaapAqL9onc1sKSkAny7dE6ng2pHWGA/{id}.json";
     uint8 constant _maxTokensAmount = 10;
@@ -16,11 +17,15 @@ contract Nft1155 is ERC1155 {
         }
     }
 
+    function setBaseTokenUri(string memory tokenBaseUri) external override {
+        _tokenBaseUri = tokenBaseUri;
+    }
+
     function mint(
         address to,
         uint8 tokenId,
         uint256 amount
-    ) external {
+    ) external override {
         require(
             tokenId > 0 && tokenId <= _maxTokensAmount,
             "TokenId should be in the range from 1 to 10"
@@ -28,11 +33,16 @@ contract Nft1155 is ERC1155 {
         _mint(to, tokenId, amount, "");
     }
 
-    function getBaseTokenUri() public view returns (string memory) {
+    function getBaseTokenUri() external view override returns (string memory) {
         return _tokenBaseUri;
     }
 
-    function getMaxAllowedTokensAmount() public pure returns (uint8) {
+    function getMaxAllowedTokensAmount()
+        external
+        pure
+        override
+        returns (uint8)
+    {
         return _maxTokensAmount;
     }
 }
